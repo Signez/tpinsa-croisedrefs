@@ -27,6 +27,22 @@ using namespace std;
 
 // ================================================================ PUBLIC
 
+bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier)
+{
+    /* petit brouillon...
+    std::map< std::string, std::list< std::pair < std::string, std::list< int > > > >::iterator it;
+    it = refs.find(identifiant)
+    if (it == map::end)
+    {
+        
+        refs.insert(make_pair(identifiant, ));
+    }
+    else if (it
+    {
+        
+    }*/
+} //----- Fin de AddLine
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 Index & Index::operator =(const Index & unIndex)
