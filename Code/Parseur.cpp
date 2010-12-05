@@ -61,31 +61,14 @@ pair<string, int>* Parseur::NextIdent()
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-/**
- * @algorithm
- */
-Parseur & Parseur::operator =(const Parseur & unParseur)
-{
-} //----- Fin de operator =
-
+// Aucune : ifstream ne supporte pas la copie.
 
 //-------------------------------------------- Constructeurs - destructeur
 
 /**
  * @algorithm
  */
-Parseur::Parseur(const Parseur & unParseur)
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Parseur>" << endl;
-#endif
-} //----- Fin de Parseur (constructeur de copie)
-
-
-/**
- * @algorithm
- */
-Parseur::Parseur()
+Parseur::Parseur(string fileName)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Parseur>" << endl;

@@ -46,17 +46,15 @@ class Parseur
 
         //------------------------------------------------- Surcharge d'opérateurs
 
-        /**
-         * Assigne le contenu de unParseur au parseur.
-         */
-        Parseur & operator =(const Parseur & unParseur);
+        // Aucune surcharge d'opérateur d'affectation. L'objet contient
+        // un ifstream, qui ne gère pas la copie ; de plus, l'affectation
+        // d'un parseur à un autre n'a pas de sens dans l'application.
 
         //-------------------------------------------- Constructeurs - destructeur
 
-        /**
-         * Construit un nouveau parseur par copie d'après unParseur.
-         */
-        Parseur(const Parseur & unParseur);
+        // Aucun constructeur de copie. L'objet contient un ifstream, qui ne
+        // gère pas la copie ; de plus, la construction d'un parseur à partir
+        // d'un autre n'a pas de sens dans l'application.
 
         /**
          * Construit un parseur chargeant le fichier au nom fileName.
@@ -84,6 +82,11 @@ class Parseur
          * Flux de lecture positionné sur le fichier.
          */
         std::ifstream fichier;
+
+    private:
+        // Méthodes désactivées (objets non copiables, voir plus haut)
+        Parseur& operator=(Parseur const &);
+        Parseur(const Parseur & unParseur);
 
 };
 
