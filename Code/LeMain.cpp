@@ -2,6 +2,5 @@
 
 int main( int argc, const char* argv[] )
 {
-    Main a = new Main(argc, argv);
-    delete a;
+    Main a(argc, argv);
 }

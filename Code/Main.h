@@ -1,10 +1,11 @@
+#include "Parseur.h"
 
 class Main
 {
     private:
-        Analyseur* unAnalyseur;
+        Parseur* unParseur;
     
     public:
-        Main(int argc, char* argv[]);
+        Main(int argc, const char* argv[]);
     
-}
+};

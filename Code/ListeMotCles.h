@@ -16,6 +16,10 @@
 #if ! defined ( LISTEMOTCLES_H_ )
 #define LISTEMOTCLES_H_
 
+//
+#include <set>
+#include <string>
+
 /**
  * Stocke la liste des éléments et rends aisé le fait de tester si un
  * mot est présent dans cette liste ou non.
@@ -77,7 +81,7 @@ class ListeMotCles
         /**
          * Contient la liste des mots clés.
          */
-        std::set<string> ref;
+        std::set<std::string> ref;
 };
 
 //--------------------------- Autres définitions dépendantes de <ListeMotCles>

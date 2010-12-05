@@ -17,6 +17,12 @@
 #if ! defined ( INDEX_H_ )
 #define INDEX_H_
 
+
+// --- Inclusion des types de la STL
+#include <map>
+#include <list>
+#include <string>
+
 /**
  * Stocke des références vers des identifiants, contenus dans des fichiers
  * et des lignes.
@@ -28,7 +34,7 @@
  * dans l'index.
  * Pour redémarrer le parcours du contenu de l'index, on utilisera Reset.
  */
-class Index :
+class Index
 {
         //================================================================= PUBLIC
 

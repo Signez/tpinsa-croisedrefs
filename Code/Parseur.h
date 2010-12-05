@@ -18,6 +18,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <fstream>
+#include <string>
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
@@ -41,7 +42,7 @@ class Parseur
          * trouvé dans le fichier, retourne une paire contenant une chaîne vide
          * comme premier élément.
          */
-        pair<string, int>* NextIdent();
+        std::pair<std::string, int>* NextIdent();
 
         //------------------------------------------------- Surcharge d'opérateurs
 
@@ -60,7 +61,7 @@ class Parseur
         /**
          * Construit un parseur chargeant le fichier au nom fileName.
          */
-        Parseur(string fileName);
+        Parseur(std::string fileName);
 
         /**
          * Détruit le parseur.
@@ -82,7 +83,7 @@ class Parseur
         /**
          * Flux de lecture positionné sur le fichier.
          */
-        ifstream fichier;
+        std::ifstream fichier;
 
 };
 

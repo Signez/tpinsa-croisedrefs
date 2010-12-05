@@ -32,8 +32,10 @@ using namespace std;
 /**
  * @algorithm
  */
-ListeMotCles & ListeMotCles::operator =(const ListeMotCles & unListeMotCles)
+ListeMotCles & ListeMotCles::operator =(const ListeMotCles & uneListeMotCles)
 {
+    ref = uneListeMotCles.ref;
+    return *this;
 } //----- Fin de operator =
 
 
@@ -42,11 +44,12 @@ ListeMotCles & ListeMotCles::operator =(const ListeMotCles & unListeMotCles)
 /**
  * @algorithm
  */
-ListeMotCles::ListeMotCles(const ListeMotCles & unListeMotCles)
+ListeMotCles::ListeMotCles(const ListeMotCles & uneListeMotCles)
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <ListeMotCles>" << endl;
 #endif
+    ref = uneListeMotCles.ref;
 } //----- Fin de ListeMotCles (constructeur de copie)
 
 
