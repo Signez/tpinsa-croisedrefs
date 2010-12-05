@@ -27,13 +27,10 @@ Main::Main(int argc, const char* argv[])
     
     set<string>* listeMotCles;
     
-    if(argv[paramCounter][0] == '-' && argv[paramCounter][1] == 'k')
+    //sizeof(argv[paramCounter])/sizeof(char) donne la taille de la chaine de caractère courante
+    if(sizeof(argv[paramCounter])/sizeof(char) > 2 && argv[paramCounter][0] == '-' && argv[paramCounter][1] == 'k')
     {
         string arg(argv[paramCounter]);
-        if(arg.length()<=2) {
-            //TODO: ERREUR
-            cout << "erreur non supportée";
-        }
         fichierMotCles = arg.substr(2, arg.length()-2);
         paramCounter++;
         ifstream* fMotCles = new ifstream(fichierMotCles.c_str());
