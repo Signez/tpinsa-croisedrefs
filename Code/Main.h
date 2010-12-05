@@ -11,7 +11,7 @@
 // Ses conseils et ses principes de formatages (retours à la ligne et
 // informations algorithmiques complémentaires) sont cependant conservés.
 
-// =======[ Réalisation de la classe <Index> (fichier Index.cpp) ]========
+// ==========[ Interface de la classe <Main> (fichier Main.h) ]============
 
 #if ! defined ( MAIN_H_ )
 #define MAIN_H_

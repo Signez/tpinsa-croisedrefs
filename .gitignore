@@ -1,2 +1,6 @@
+nbproject/
+NB-Makefile
 *.o
 
+.dep.inc
+Code/build/

@@ -50,11 +50,16 @@ Main::Main(int argc, const char* argv[])
             //TODO: ERREUR
             cout << "erreur non supportée";
         }
+
         Parseur parseur(fichierMotCles); //On utilise la chaine de caractère qui indique le flux déjà testé
-        pair<string, int>* tempPair;
-        while((tempPair = parseur.NextIdent())->first != "") {
-            listeMotCles.insert(tempPair->first);
+
+        string motcle = parseur.NextIdent()->first;
+        while(motcle != "")
+        {
+            listeMotCles->insert(motcle);
+            motcle = parseur.NextIdent()->first;
         }
+
         if(listeMotCles->empty()) {
             //TODO: ERREUR
             cout << "erreur non supportée";
