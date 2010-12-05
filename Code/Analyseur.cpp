@@ -18,14 +18,28 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <fstream>
 
 //------------------------------------------------------ Include personnel
 #include "Analyseur.h"
+#include "ListeMotCles.h"
+#include "Index.h"
+#include "Parseur.h"
 
 //------------------------------------------------------------- Constantes
 
 //================================================================= PUBLIC
 
+
+Index * Analyseur::Run() {
+    Index * index = new Index();
+    // Pour tous les fichiers...
+    for(vector<string>::iterator it = nomsFichiers.begin() ; it != nomsFichiers.end(); ++it)
+    {
+        //Parseur element = ;
+    }
+    return index;
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -43,23 +57,20 @@ Analyseur & Analyseur::operator =(const Analyseur & unAnalyseur)
 /**
  * @algorithm
  */
+Analyseur::Analyseur(ListeMotCles listeMotCles, std::vector<std::string> fichiers, bool exclusion)
+    : motscles(listeMotCles), nomsFichiers(fichiers), motsExclus(exclusion)
+{
+}
+
+/**
+ * @algorithm
+ */
 Analyseur::Analyseur(const Analyseur & unAnalyseur)
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Analyseur>" << endl;
 #endif
 } //----- Fin de Analyseur (constructeur de copie)
-
-
-/**
- * @algorithm
- */
-Analyseur::Analyseur()
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <Analyseur>" << endl;
-#endif
-} //----- Fin de Analyseur
 
 
 /**

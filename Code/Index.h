@@ -19,9 +19,9 @@
 
 
 // --- Inclusion des types de la STL
+#include <string>
 #include <map>
 #include <list>
-#include <string>
 
 /**
  * Stocke des références vers des identifiants, contenus dans des fichiers

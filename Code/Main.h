@@ -21,11 +21,10 @@
 class Main
 {
     protected:
-        Analyseur* unAnalyseur;
-        void printUsage(const char* nomprogramme);
+        static void printUsage(const char* nomprogramme);
     
     public:
-        Main(int argc, const char* argv[]);
+        static int Run(int argc, const char* argv[]);
     
 };
 

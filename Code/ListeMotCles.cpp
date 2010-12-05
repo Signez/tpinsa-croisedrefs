@@ -18,6 +18,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "ListeMotCles.h"
@@ -25,6 +26,21 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //================================================================= PUBLIC
+
+bool ListeMotCles::AddMotCle(string unMotCle)
+{
+    return ref.insert(unMotCle).second;
+}
+
+bool ListeMotCles::IsMotCle(std::string unMotCle) const
+{
+    return ref.find(unMotCle) != ref.end();
+}
+
+bool ListeMotCles::IsVide() const
+{
+    return ref.empty();
+}
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -61,6 +77,7 @@ ListeMotCles::ListeMotCles()
 #ifdef MAP
     cout << "Appel au constructeur de <ListeMotCles>" << endl;
 #endif
+    ref = set<string>();
 } //----- Fin de ListeMotCles
 
 

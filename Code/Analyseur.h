@@ -20,25 +20,77 @@
 #include <string>
 #include <vector>
 
+#include "ListeMotCles.h"
 #include "Index.h"
 
-class Analyseur {
+class Analyseur
+{
 
     public :
+
+        //----------------------------------------------------- Méthodes publiques
+
+        /**
+         * Lance l'analyseur.
+         *
+         * @return Un index prêt à être utilisé.
+         */
+        Index * Run();
+
         //------------------------------------------------- Surcharge d'opérateurs
 
-        // Aucune surcharge d'opérateur d'affectation. L'objet contient
-        // un ifstream, qui ne gère pas la copie ; de plus, l'affectation
-        // d'un parseur à un autre n'a pas de sens dans l'application.
+        /**
+         * Affecte les données d'unAnalyseur à l'analyseur.
+         * @param unAnalyseur Analyseur d'où proviendront les données affectées
+         * à l'analyseur.
+         * @return L'analyseur, avec les données d'unAnalyseur.
+         */
+        Analyseur & operator =(const Analyseur & unAnalyseur);
 
         //-------------------------------------------- Constructeurs - destructeur
 
-        // Aucun constructeur de copie. L'objet contient un ifstream, qui ne
-        // gère pas la copie ; de plus, la construction d'un parseur à partir
-        // d'un autre n'a pas de sens dans l'application.
-        
-        Analyseur(std::set<std::string> listeMotCles, std::vector<std::string> fichiers, bool exclusion);
-        Index Run();
+        /**
+         * Construit un Analyseur.
+         *
+         * @param listeMotCles Liste de mots clés à rechercher (ou à ne pas rechercher)
+         * dans les fichiers.
+         * @param fichiers Vecteurs de noms de fichiers dans lesquels la recherche
+         * doit se faire.
+         * @param exclusion Booléen indiquant si les mots indiqués sont exclus de la
+         * recherche (true) ou au contraire sont les seuls à être recherchés (false).
+         */
+        Analyseur(ListeMotCles listeMotCles, std::vector<std::string> fichiers, bool exclusion);
+
+        /**
+         * Construit un Analyseur à partir des données d'un autre (constructeur
+         * par copie).
+         * @param unAnalyseur Analyseur à partir duquel les données vont être copiées.
+         */
+        Analyseur(const Analyseur & unAnalyseur);
+
+        /**
+         * Détruit l'analyseur.
+         */
+        virtual ~Analyseur();
+
+    protected:
+        /**
+         * Contient les mots clés à rechercher, renseignés lors de la construction
+         * de l'objet.
+         */
+        ListeMotCles motscles;
+
+        /**
+         * Noms des fichiers qui doivent être analysés.
+         */
+        std::vector<std::string> nomsFichiers;
+
+        /**
+         * Indique si les mots clés inclus dans motscles sont à exclure, ou au
+         * contraire s'ils sont les seuls à être retournés.
+         */
+        bool motsExclus;
+
 };
 
 #endif // ANALYSEUR_H_

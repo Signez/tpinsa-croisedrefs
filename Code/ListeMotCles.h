@@ -37,14 +37,21 @@ class ListeMotCles
          * @return Si le mot clé existe déjà ou n'a pas pu être inséré, false ;
          * sinon, true.
          */
-        bool AddMotCle(string unMotCle);
+        bool AddMotCle(std::string unMotCle);
 
         /**
          * Vérifie si un mot clé est déjà dans la liste.
          *
          * @return Si le mot clé est dans la liste, true ; sinon, false.
          */
-        bool IsMotCle(string unMotCle) const;
+        bool IsMotCle(std::string unMotCle) const;
+
+        /**
+         * Indique si la liste des mots clés est vide ou non.
+         *
+         * @return Si la liste est vide, true ; sinon false.
+         */
+        bool IsVide() const;
 
         //------------------------------------------------- Surcharge d'opérateurs
 

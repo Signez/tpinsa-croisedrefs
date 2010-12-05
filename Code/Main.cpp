@@ -11,7 +11,7 @@ using namespace std;
 /**
  
  */
-Main::Main(int argc, const char* argv[])
+int Main::Run(int argc, const char* argv[])
 {
     // Contient le paramètre actuellement analysé
     int paramCounter = 0;
@@ -22,27 +22,31 @@ Main::Main(int argc, const char* argv[])
     // Doit-on exclure ou non les mots clés indiqués ?
     bool exclusion = true;
 
-    if(argc == 0)
+    if(argc - 1 == 0)
     {
         // Aucune action demandée ? Rappelons le mode d'emploi...
         printUsage(argv[0]);
+        return 0;
     }
 
-    if(string(argv[1]) == "-e") {
+    string preArg = argv[1];
+
+    if(preArg.compare("-e")) {
         exclusion = false;
         paramCounter++;
         if(argc == 1) {
             cerr << "E: Aucun fichier à analyser." << endl;
             printUsage(argv[0]);
+            return 0;
         }
     }
     
-    set<string>* listeMotCles;
+    ListeMotCles listeMotCles;
     
     //sizeof(argv[paramCounter])/sizeof(char) donne la taille de la chaine de caractère courante
     if(sizeof(argv[paramCounter])/sizeof(char) > 2 && argv[paramCounter][0] == '-' && argv[paramCounter][1] == 'k')
     {
-        string arg(argv[paramCounter]);
+        string arg = argv[paramCounter];
         fichierMotCles = arg.substr(2, arg.length()-2);
         paramCounter++;
         ifstream* fMotCles = new ifstream(fichierMotCles.c_str());
@@ -55,11 +59,11 @@ Main::Main(int argc, const char* argv[])
         string motcle = parseur.NextIdent()->first;
         while(motcle != "")
         {
-            listeMotCles->insert(motcle);
+            listeMotCles.AddMotCle(motcle);
             motcle = parseur.NextIdent()->first;
         }
 
-        if(listeMotCles->empty()) {
+        if(listeMotCles.IsVide()) {
             //TODO: ERREUR
             cout << "erreur non supportée";
         }
@@ -96,13 +100,23 @@ Main::Main(int argc, const char* argv[])
     
     for(int i=0; i < (int) listFichiers.size(); i++)
     {
+        // On vérifie si les fichiers existent bien, dès maintenant
+        ifstream unFichier(argv[paramCounter+i]);
+        if(unFichier.bad()) {
+            cerr << "E: Le fichier " << argv[paramCounter+i]
+                 << " est inconnu ou inaccessible en lecture." << endl;
+            return 0;
+        }
         listFichiers[i] = argv[paramCounter+i];
     }
     
-    unAnalyseur = new Analyseur(*listeMotCles, listFichiers, exclusion);
+    Analyseur unAnalyseur(listeMotCles, listFichiers, exclusion);
 
+    unAnalyseur.Run();
+
+    return 0;
 }
 
 void Main::printUsage(const char * nomprogramme){
-    cerr << "Usage:" << nomprogramme << " [-e] [-k <keyword file>] file1 [file2 ...]" << endl;
+    cerr << "Usage: " << nomprogramme << " [-e] [-k <keyword file>] file1 [file2 ...]" << endl;
 }

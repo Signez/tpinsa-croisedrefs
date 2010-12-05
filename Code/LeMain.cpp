@@ -2,5 +2,5 @@
 
 int main( int argc, const char* argv[] )
 {
-    Main a(argc, argv);
+    return Main::Run(argc, argv);
 }

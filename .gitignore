@@ -4,3 +4,4 @@ NB-Makefile
 
 .dep.inc
 Code/build/
+Code/dist/
