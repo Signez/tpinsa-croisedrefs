@@ -81,7 +81,7 @@ class Parseur
         /**
          * Flux de lecture positionné sur le fichier.
          */
-        std::ifstream fichier;
+        std::ifstream* fichier;
 
     private:
         // Méthodes désactivées (objets non copiables, voir plus haut)

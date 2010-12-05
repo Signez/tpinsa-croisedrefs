@@ -34,8 +34,8 @@ pair<string, int>* Parseur::NextIdent()
     bool estDansIdentif = false;
     string buffer = "";
     int nbreCar = 0;
-    while(fichier) {
-        fichier.get(c);
+    while(*fichier) {
+        fichier->get(c);
         if(c == '\n') {
             currentLine++;
         } else if((isalnum(c) || c == '_') && estDansIdentif) {
@@ -66,13 +66,17 @@ pair<string, int>* Parseur::NextIdent()
 //-------------------------------------------- Constructeurs - destructeur
 
 /**
+ * Contrat :
+ *     Le fichier fileName doit correspondre à un flux valide.
  * @algorithm
  */
-Parseur::Parseur(string fileName)
+Parseur::Parseur(string fileName) :
+    currentLine(0)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Parseur>" << endl;
 #endif
+    fichier = new ifstream(fileName.c_str());
 } //----- Fin de Parseur
 
 Parseur::~Parseur()
@@ -80,6 +84,8 @@ Parseur::~Parseur()
 #ifdef MAP
     cout << "Appel au destructeur de <Parseur>" << endl;
 #endif
+    fichier->close();
+    delete fichier;
 } //----- Fin de ~Parseur
 
 

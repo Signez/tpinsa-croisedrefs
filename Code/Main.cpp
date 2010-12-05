@@ -54,7 +54,8 @@ int Main::Run(int argc, const char* argv[])
             //TODO: ERREUR
             cout << "erreur non supportée";
         }
-        Parseur parseur(fichierMotCles); //On ne se sert pas du flux ?
+
+        Parseur parseur(fichierMotCles); //On utilise la chaine de caractère qui indique le flux déjà testé
 
         string motcle = parseur.NextIdent()->first;
         while(motcle != "")
