@@ -22,7 +22,7 @@ class Main
 {
     protected:
         Analyseur* unAnalyseur;
-        void printUsage(char* nomprogramme);
+        void printUsage(const char* nomprogramme);
     
     public:
         Main(int argc, const char* argv[]);

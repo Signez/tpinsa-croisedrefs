@@ -50,8 +50,11 @@ Main::Main(int argc, const char* argv[])
             //TODO: ERREUR
             cout << "erreur non supportée";
         }
-        Parseur parseur(fichierMotCles); //On ne se sert pas du flux ?
-        listeMotCles = parseur.NextIdent();
+        Parseur parseur(fichierMotCles); //On utilise la chaine de caractère qui indique le flux déjà testé
+        pair<string, int>* tempPair;
+        while((tempPair = parseur.NextIdent())->first != "") {
+            listeMotCles.insert(tempPair->first);
+        }
         if(listeMotCles->empty()) {
             //TODO: ERREUR
             cout << "erreur non supportée";
@@ -96,6 +99,6 @@ Main::Main(int argc, const char* argv[])
 
 }
 
-Main::printUsage(char * nomprogramme){
+void Main::printUsage(const char * nomprogramme){
     cerr << "Usage:" << nomprogramme << " [-e] [-k <keyword file>] file1 [file2 ...]" << endl;
 }

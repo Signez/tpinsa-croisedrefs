@@ -83,7 +83,7 @@ class Parseur
         /**
          * Flux de lecture positionné sur le fichier.
          */
-        std::ifstream fichier;
+        std::ifstream* fichier;
 
 };
 

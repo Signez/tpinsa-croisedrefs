@@ -83,13 +83,17 @@ Parseur::Parseur(const Parseur & unParseur)
 
 
 /**
+ * Contrat :
+ *     Le fichier fileName doit correspondre à un flux valide.
  * @algorithm
  */
-Parseur::Parseur()
+Parseur::Parseur(string fileName) :
+    currentLine(0);
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Parseur>" << endl;
 #endif
+    fichier = new ifstream(fileName.c_str());
 } //----- Fin de Parseur
 
 Parseur::~Parseur()
@@ -97,6 +101,8 @@ Parseur::~Parseur()
 #ifdef MAP
     cout << "Appel au destructeur de <Parseur>" << endl;
 #endif
+    fichier.close();
+    delete fichier;
 } //----- Fin de ~Parseur
 
 
