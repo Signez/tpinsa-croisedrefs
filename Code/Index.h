@@ -91,14 +91,14 @@ class Index
          * @return Le prochain fichier, ou une chaîne vide si plus aucun autre fichier ne contient
          * l'identifiant.
          */
-        string NextFile();
+        std::string NextFile();
 
         /**
          * Récupère le prochain identifiant contenu dans l'index des références.
          *
          * @return Le prochain identifiant, ou une chaîne vide si la fin de l'index est atteinte.
          */
-        string NextIdent();
+        std::string NextIdent();
 
         //------------------------------------------------- Surcharge d'opérateurs
 

@@ -5,33 +5,44 @@
 #include <vector>
 using namespace std;
 
+#include "Main.h"
+#include "Parseur.h"
+
+/**
+ 
+ */
 Main::Main(int argc, const char* argv[])
 {
+    // Contient le paramètre actuellement analysé
     int paramCounter = 0;
+
+    // Nom du fichier contenant les mots-clés (si indiqués)
     string fichierMotCles = "";
+
+    // Doit-on exclure ou non les mots clés indiqués ?
     bool exclusion = true;
-    if(argc == 0) {
-        //TODO: ERREUR
-        cout << "erreur non supportée";
+
+    if(argc == 0)
+    {
+        // Aucune action demandée ? Rappelons le mode d'emploi...
+        printUsage(argv[0]);
     }
-    if(strcmp(argv[0], "-e") == 0) {
+
+    if(string(argv[1]) == "-e") {
         exclusion = false;
         paramCounter++;
         if(argc == 1) {
-            //TODO: ERREUR
-            cout << "erreur non supportée";
+            cerr << "E: Aucun fichier à analyser." << endl;
+            printUsage(argv[0]);
         }
     }
     
     set<string>* listeMotCles;
     
-    if(argv[paramCounter][0] == '-' && argv[paramCounter][1] == 'k')
+    //sizeof(argv[paramCounter])/sizeof(char) donne la taille de la chaine de caractère courante
+    if(sizeof(argv[paramCounter])/sizeof(char) > 2 && argv[paramCounter][0] == '-' && argv[paramCounter][1] == 'k')
     {
         string arg(argv[paramCounter]);
-        if(arg.length()<=2) {
-            //TODO: ERREUR
-            cout << "erreur non supportée";
-        }
         fichierMotCles = arg.substr(2, arg.length()-2);
         paramCounter++;
         ifstream* fMotCles = new ifstream(fichierMotCles.c_str());
@@ -40,7 +51,7 @@ Main::Main(int argc, const char* argv[])
             cout << "erreur non supportée";
         }
         Parseur parseur(fichierMotCles); //On ne se sert pas du flux ?
-        //listeMotCles = Parseur.parser(fMotCles);
+        listeMotCles = parseur.NextIdent();
         if(listeMotCles->empty()) {
             //TODO: ERREUR
             cout << "erreur non supportée";
@@ -68,13 +79,23 @@ Main::Main(int argc, const char* argv[])
         }
     }
     
-    if(argc-paramCounter <=0)
+    if(argc - paramCounter <=0)
     {
             //TODO: ERREUR
             cout << "erreur non supportée";
     }
-    vector<string>* listFichiers = new listFichiers(argc-paramCounter);
     
+    vector<string> listFichiers(argc - paramCounter);
     
+    for(int i=0; i < (int) listFichiers.size(); i++)
+    {
+        listFichiers[i] = argv[paramCounter+i];
+    }
+    
+    unAnalyseur = new Analyseur(*listeMotCles, listFichiers, exclusion);
 
+}
+
+Main::printUsage(char * nomprogramme){
+    cerr << "Usage:" << nomprogramme << " [-e] [-k <keyword file>] file1 [file2 ...]" << endl;
 }
