@@ -28,7 +28,7 @@
  * dans l'index.
  * Pour redémarrer le parcours du contenu de l'index, on utilisera Reset.
  */
-class Index :
+class Index
 {
         //================================================================= PUBLIC
 

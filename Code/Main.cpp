@@ -5,6 +5,8 @@
 #include <vector>
 using namespace std;
 
+#include "Main.h"
+
 Main::Main(int argc, const char* argv[])
 {
     int paramCounter = 0;
@@ -73,8 +75,14 @@ Main::Main(int argc, const char* argv[])
             //TODO: ERREUR
             cout << "erreur non supportée";
     }
-    vector<string>* listFichiers = new listFichiers(argc-paramCounter);
     
+    string listFichiers[] = new string[argc-paramCounter];
     
+    for(int i=0; i<argc-paramCounter; i++)
+    {
+        listFichiers[i] = argv[paramCounter+i];
+    }
+    
+    unAnalyseur = new Analyseur(listeMotCles, listFichiers, exclusion);
 
 }
