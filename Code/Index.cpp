@@ -29,18 +29,35 @@ using namespace std;
 
 bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier)
 {
-    /* petit brouillon...
-    std::map< std::string, std::list< std::pair < std::string, std::list< int > > > >::iterator it;
-    it = refs.find(identifiant)
-    if (it == map::end)
+    identFichiers::iterator it;
+    it = refs.find(identifiant);
+    if (it == refs.end())
     {
+        list<int>* lignes = new list<int>();
+        lignes->push_back(lineNum);
         
-        refs.insert(make_pair(identifiant, ));
+        list<fichierLignes>* liste = new list<fichierLignes>();
+        liste->push_back(make_pair(nomFichier, lignes));
+        
+        return refs.insert(make_pair(identifiant, liste)).second;
     }
-    else if (it
+    else if ( (it->second->back().first) != nomFichier)
     {
+        list<int>* lignes = new list<int>();
+        lignes->push_back(lineNum);
         
-    }*/
+        it->second->push_back(make_pair(nomFichier, lignes));
+        return true;
+    }
+    else if( (it->second->back().second->back()) != lineNum)
+    //On parse linéairement les fichiers, il suffit donc de vérifier que la dernière
+    //ligne mémorisée (pour cet identifiant dans ce fichier) n'est pas celle que
+    //l'on veut ajouter
+    {
+        it->second->back().second->push_back(lineNum);
+        return true;
+    }
+    return false;
 } //----- Fin de AddLine
 
 //------------------------------------------------- Surcharge d'opérateurs

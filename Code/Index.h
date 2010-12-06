@@ -39,6 +39,10 @@ class Index
         //================================================================= PUBLIC
 
     public:
+    
+        typedef std::pair< std::string, std::list<int>* > fichierLignes;
+        typedef std::map< std::string, std::list<fichierLignes>* > identFichiers;
+        
         //----------------------------------------------------- Méthodes publiques
 
         /**
@@ -148,7 +152,7 @@ class Index
          *     - (fichier1.cpp, [4, 8])
          *     - (fichier5.cpp, [2])
          */
-        std::map< std::string, std::list< std::pair < std::string, std::list< int > > > > refs;
+        identFichiers refs;
 };
 
 //--------------------------- Autres définitions dépendantes de <Index>
