@@ -99,16 +99,17 @@ int Main::Run(int argc, const char* argv[])
     
     vector<string> listFichiers(argc - paramCounter);
     
-    for(int i=0; i < (int) listFichiers.size(); i++)
+    for(int i = paramCounter; i < (int) argc; i++)
     {
         // On vérifie si les fichiers existent bien, dès maintenant
-        ifstream unFichier(argv[paramCounter+i]);
-        if(unFichier.bad()) {
-            cerr << "E: Le fichier " << argv[paramCounter+i]
+        ifstream unFichier;
+        unFichier.open(argv[i]);
+        if(!unFichier) {
+            cerr << "E: Le fichier " << argv[i]
                  << " est inconnu ou inaccessible en lecture." << endl;
             return 0;
         }
-        listFichiers[i] = argv[paramCounter+i];
+        listFichiers[i - paramCounter] = argv[i];
     }
     
     Analyseur unAnalyseur(listeMotCles, listFichiers, exclusion);
@@ -118,6 +119,7 @@ int Main::Run(int argc, const char* argv[])
     return 0;
 }
 
-void Main::printUsage(const char * nomprogramme){
+void Main::printUsage(const char * nomprogramme)
+{
     cerr << "Usage: " << nomprogramme << " [-e] [-k <keyword file>] file1 [file2 ...]" << endl;
 }
