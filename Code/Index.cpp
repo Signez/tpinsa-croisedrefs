@@ -36,6 +36,9 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
     
     identFichiers::iterator it;
     it = refs.find(identifiant);
+    cout << "Ajout d'une ligne " << lineNum 
+         << " pour l'identifiant " << identifiant << " (fichier " 
+         << nomFichier << ")" << endl;
     if (it == refs.end())
     {
         list<int>* lignes = new list<int>();
@@ -43,7 +46,7 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
         
         list<fichierLignes>* liste = new list<fichierLignes>();
         liste->push_back(make_pair(nomFichier, lignes));
-        
+        cout << "Ping..." << endl;
         return refs.insert(make_pair(identifiant, liste)).second;
     }
     else if ( (it->second->back().first) != nomFichier)
@@ -52,6 +55,7 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
         lignes->push_back(lineNum);
         
         it->second->push_back(make_pair(nomFichier, lignes));
+        cout << "Pang..." << endl;
         return true;
     }
     else if( (it->second->back().second->back()) != lineNum)
@@ -60,6 +64,7 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
     //l'on veut ajouter
     {
         it->second->back().second->push_back(lineNum);
+        cout << "Pong..." << endl;
         return true;
     }
     return false;

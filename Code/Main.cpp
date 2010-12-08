@@ -116,8 +116,18 @@ int Main::Run(int argc, const char* argv[])
 
     Index * lindex = unAnalyseur.Run();
     
-    while(lindex->HasNextFile()){
-      
+    while(lindex->HasNextIdent()){
+      cout << lindex->NextIdent();
+        
+      while(lindex->HasNextFile()){
+        cout << "\t" << lindex->NextFile();
+        
+        while(lindex->HasNextLine()){
+          cout << " " << lindex->NextLine();
+        }
+        
+        cout << endl;
+      }
     }
 
     return 0;
