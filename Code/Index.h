@@ -49,6 +49,8 @@ class Index
          * Ajoute une référence à identifiant, placé à la ligne lineNum dans
          * le fichier nomFichier.
          *
+         * Cette opération remet à zéro les méthodes de parcours de l'index.
+         *
          * Contrat : nomFichier doit être le même fichier que la référence qui
          * vient d'être ajoutée, ou un nom de fichier qui n'a pas déjà été référencé
          * dans l'index pour l'identificateur indiqué.
@@ -65,21 +67,21 @@ class Index
          *
          * @return S'il existe un autre identifiant, retourne true ; sinon, false.
          */
-        bool HasNextIdent() const;
+        bool HasNextIdent();
 
         /**
          * Indique si un autre fichier associé à l'identifiant courant existe dans l'index.
          *
          * @return S'il existe un autre fichier, retourne true ; sinon, false.
          */
-        bool HasNextFile() const;
+        bool HasNextFile();
 
         /**
          * Indique s'il existe une autre ligne associée à l'identifiant courant dans l'index.
          *
-         * @return S'il existe une autre ligne, retourne
+         * @return S'il existe une autre ligne, retourne true ; sinon, false.
          */
-        bool HasNextLine() const;
+        bool HasNextLine();
 
         /**
          * Récupère la prochaine ligne associée à l'identifiant en cours.
@@ -139,6 +141,8 @@ class Index
     protected:
         //----------------------------------------------------- Méthodes protégées
 
+        void resetIterators();
+
         //----------------------------------------------------- Attributs protégés
         /**
          * Contient les données de l'index.
@@ -153,6 +157,31 @@ class Index
          *     - (fichier5.cpp, [2])
          */
         identFichiers refs;
+        
+        /**
+         * Indique si les itérateurs internes sont valides ou non.
+         * 
+         * Typiquement, dès qu'une insertion est effectuée, les itérateurs
+         * ne sont plus utilisables. AddLine mets alors areItValid à false
+         * et les méthodes utilisant les itérateurs testent si areItValid 
+         * est vrai ; sinon, la méthode resetIterators est appelée.
+         */
+        bool areItValid;
+        
+        /**
+         * Contient l'itérateur actuel sur les identifiants.
+         */
+        identFichiers::iterator itIdent;
+        
+        /**
+         * Contient l'itérateur actuel sur les fichiers.
+         */
+        std::list<fichierLignes>::iterator itFichier;
+        
+        /**
+         * Contient l'itérateur actuel sur les lignes.
+         */
+        std::list<int>::iterator itLigne;
 };
 
 //--------------------------- Autres définitions dépendantes de <Index>

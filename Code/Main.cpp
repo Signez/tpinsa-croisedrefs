@@ -114,7 +114,11 @@ int Main::Run(int argc, const char* argv[])
     
     Analyseur unAnalyseur(listeMotCles, listFichiers, exclusion);
 
-    unAnalyseur.Run();
+    Index * lindex = unAnalyseur.Run();
+    
+    while(lindex->HasNextFile()){
+      
+    }
 
     return 0;
 }

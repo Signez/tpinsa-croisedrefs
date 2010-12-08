@@ -34,9 +34,14 @@ using namespace std;
 Index * Analyseur::Run() {
     Index * index = new Index();
     // Pour tous les fichiers...
-    for(vector<string>::iterator it = nomsFichiers.begin() ; it != nomsFichiers.end(); ++it)
+    for(vector<string>::iterator currFichier = nomsFichiers.begin() ; 
+          currFichier != nomsFichiers.end(); ++currFichier)
     {
-        //Parseur element = ;
+        Parseur fichpars(*currFichier);
+        std::pair<std::string, int> * ident = fichpars.NextIdent();
+        while(ident->first != ""){
+          index->AddLine(ident->first, ident->second, *currFichier);
+        }
     }
     return index;
 }

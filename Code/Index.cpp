@@ -29,6 +29,11 @@ using namespace std;
 
 bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier)
 {
+    // Les structures internes sont modifiées. On invalide les itérateurs
+    // de lecture pour éviter des erreurs légitimes et forcer leur 
+    // réinitialisation.
+    areItValid = false;
+    
     identFichiers::iterator it;
     it = refs.find(identifiant);
     if (it == refs.end())
@@ -60,10 +65,50 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
     return false;
 } //----- Fin de AddLine
 
+bool Index::HasNextIdent()
+{
+  if(!areItValid) resetIterators();
+  return itIdent != refs.end();
+}
+
+bool Index::HasNextFile()
+{
+  if(!areItValid) resetIterators();
+  return itFichier != itIdent->second->end();
+}
+
+bool Index::HasNextLine()
+{
+  if(!areItValid) resetIterators();
+  return itLigne != itFichier->second->end();
+}
+
+string Index::NextIdent()
+{
+  itIdent++;
+  return itIdent->first;
+}
+
+string Index::NextFile()
+{
+  itFichier++;
+  return itFichier->first;
+}
+
+int Index::NextLine()
+{
+  itLigne++;
+  return *itLigne;
+}
+
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 Index & Index::operator =(const Index & unIndex)
 {
+  refs = unIndex.refs;
+  resetIterators();
+  return *this;
 } //----- Fin de operator =
 
 
@@ -74,6 +119,8 @@ Index::Index(const Index & unIndex)
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Index>" << endl;
 #endif
+  refs = unIndex.refs;
+  resetIterators();
 } //----- Fin de Index (constructeur de copie)
 
 
@@ -96,3 +143,11 @@ Index::~Index()
 // ================================================================= PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
+void Index::resetIterators()
+{
+  itIdent = refs.begin();
+  itFichier = itIdent->second->begin();
+  itLigne = itFichier->second->begin();
+  areItValid = true;
+}
