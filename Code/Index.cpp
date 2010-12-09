@@ -67,20 +67,19 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
 bool Index::HasNextIdent()
 {
   if(!areItValid) resetIterators();
-  return curIdent != refs.end();
+  return itIdent != refs.end();
 }
 
 bool Index::HasNextFile()
 {
   if(!areItValid) resetIterators();
-  return curFichier != itIdent->second->end();
+  return itFichier != curIdent->second->end();
 }
 
 bool Index::HasNextLine()
 {
   if(!areItValid) resetIterators();
-  return false;
-  //return curLigne != itFichier->second->end();
+  return itLigne != curFichier->second->end();
 }
 
 string Index::NextIdent()
@@ -88,6 +87,8 @@ string Index::NextIdent()
   string retour = itIdent->first;
   curIdent = itIdent;
   ++itIdent;
+  curFichier = curIdent->second->begin();
+  itFichier = curFichier;
   return retour;
 }
 
@@ -96,6 +97,8 @@ string Index::NextFile()
   string retour = itFichier->first;
   curFichier = itFichier;
   ++itFichier;
+  curLigne = curFichier->second->begin();
+  itLigne = curLigne;
   return retour;
 }
 
