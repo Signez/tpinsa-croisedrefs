@@ -54,7 +54,10 @@ Index * Analyseur::Run() {
  */
 Analyseur & Analyseur::operator =(const Analyseur & unAnalyseur)
 {
-    return *this;
+    motscles = unAnalyseur.motscles;
+    nomsFichiers = unAnalyseur.nomsFichiers;
+    motsExclus = unAnalyseur.motsExclus;
+	return *this;
 } //----- Fin de operator =
 
 

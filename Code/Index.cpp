@@ -79,7 +79,8 @@ bool Index::HasNextFile()
 bool Index::HasNextLine()
 {
   if(!areItValid) resetIterators();
-  return curLigne != itFichier->second->end();
+  return false;
+  //return curLigne != itFichier->second->end();
 }
 
 string Index::NextIdent()
