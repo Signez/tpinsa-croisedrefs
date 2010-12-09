@@ -9,15 +9,13 @@ using namespace std;
 #include "Parseur.h"
 
 /**
- 
+ * Gestion des différentes façons d'appeler le programme
+ * La gestion des erreurs se fait au fur et à mesure de l'analyse de la ligne de commande
  */
 int Main::Run(int argc, const char* argv[])
 {
     // Contient le paramètre actuellement analysé
     int paramCounter = 1;
-
-    // Nom du fichier contenant les mots-clés (si indiqués)
-    //string fichierMotCles = "";
 
     // Doit-on exclure ou non les mots clés indiqués ?
     bool exclusion = true;
@@ -32,31 +30,40 @@ int Main::Run(int argc, const char* argv[])
     //Contient l'argument courant
     string tmpArg = argv[paramCounter];
 
-    if(tmpArg	== "-e") {
+    if(tmpArg	== "-e")
+    {
         exclusion = false;
         paramCounter++;
     }
 
-    if(argc-paramCounter == 0) {
+    if(argc-paramCounter == 0)
+    {
 		cerr << "E: Aucun fichier à analyser." << endl;
 		printUsage(argv[0]);
 		return 0;
 	}
     
-    ListeMotCles listeMotCles;
+    //Contient la liste des mots clés
+    ListeMotCles listeMotCles; 
+    
+    //Contient l'argument courant
     tmpArg = argv[paramCounter];
 
-    if(tmpArg == "-k") {
+    if(tmpArg == "-k") 
+    {
         paramCounter++;
-        if(argc-paramCounter == 0) {
+        if(argc-paramCounter == 0)
+        {
 		    cerr << "E: Aucun fichier de mot clé à analyser." << endl;
 		    printUsage(argv[0]);
 		    return 0;
 	    }
+	    //Contient l'argument courant
 	    tmpArg = argv[paramCounter];
     	
         ifstream* fMotCles = new ifstream(tmpArg.c_str());
-        if(!fMotCles) {
+        if(!fMotCles)
+        {
             cerr << "E: Le fichier des mots clés n'est pas valide";
             return 0;
         }
@@ -70,7 +77,8 @@ int Main::Run(int argc, const char* argv[])
             motcle = parseur.NextIdent()->first;
         }
 
-        if(listeMotCles.IsVide()) {
+        if(listeMotCles.IsVide())
+        {
             cerr << "E: Le fichier des mots clés n'est pas valide." << endl;
             return 0;
         }
@@ -80,6 +88,8 @@ int Main::Run(int argc, const char* argv[])
     }
     else
     {
+        //Création de la liste des mot clés du C++ par défaut
+        //Cette liste est codée en dur pour éviter la gestion d'autres erreurs.
         const int NB_MOTCLES = 63;
         string mots[NB_MOTCLES] = {"asm", "auto", "bool", "break", "case", "catch", "char", 
                         "class", "const", "const_cast", "continue", "default", 
@@ -119,21 +129,27 @@ int Main::Run(int argc, const char* argv[])
         listFichiers[i - paramCounter] = argv[i];
     }
     
+    
     Analyseur unAnalyseur(listeMotCles, listFichiers, exclusion);
 
+    //Lancement de l'analyse des fichiers
     Index * lindex = unAnalyseur.Run();
     
-    while(lindex->HasNextIdent()){
-      cout << lindex->NextIdent();
-        
-      while(lindex->HasNextFile()){
-        cout << "\t" << lindex->NextFile();
-        
-        while(lindex->HasNextLine()){
-          cout << " " << lindex->NextLine();
+    //Affichage du résultat
+    while(lindex->HasNextIdent())
+    {
+        cout << lindex->NextIdent();
+
+        while(lindex->HasNextFile())
+        {
+            cout << "\t" << lindex->NextFile();
+
+            while(lindex->HasNextLine())
+            {
+                cout << " " << lindex->NextLine();
+            }
         }
-      }
-      cout << endl;
+        cout << endl;
     }
 
     return 0;
