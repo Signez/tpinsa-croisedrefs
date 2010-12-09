@@ -1,0 +1,3 @@
+helloworld
+bonjourlemonde
+hello_i18n
