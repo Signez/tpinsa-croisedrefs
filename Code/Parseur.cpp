@@ -51,12 +51,12 @@ pair<string, int>* Parseur::NextIdent()
             estDansIdentif = false;
             return new pair<string, int>(buffer, currentLine);
         } else if((isalpha(c) || c == '_') && !estDansIdentif) {
-            buffer = "";
+            buffer = c;
             estDansIdentif = true;
             nbreCar = 0;
         }
     }
-    return NULL;
+    return new pair<string, int>("", -1);
 } //----- Fin de NextIdent
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -71,7 +71,7 @@ pair<string, int>* Parseur::NextIdent()
  * @algorithm
  */
 Parseur::Parseur(string fileName) :
-    currentLine(0)
+    currentLine(1)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Parseur>" << endl;

@@ -169,9 +169,14 @@ class Index
         bool areItValid;
         
         /**
-         * Contient l'itérateur actuel sur les identifiants.
+         * Contient l'itérateur utilisé pour parcourir les identifiants.
          */
         identFichiers::iterator itIdent;
+        
+        /**
+         * Itérateur pointant sur l'identifiant courant.
+         */
+        identFichiers::iterator curIdent;
         
         /**
          * Contient l'itérateur actuel sur les fichiers.
@@ -179,9 +184,19 @@ class Index
         std::list<fichierLignes>::iterator itFichier;
         
         /**
+         * Itérateur pointant sur le fichier courant.
+         */
+        std::list<fichierLignes>::iterator curFichier;
+        
+        /**
          * Contient l'itérateur actuel sur les lignes.
          */
         std::list<int>::iterator itLigne;
+        
+        /**
+         * Itérateur pointant sur la ligne courante.
+         */
+        std::list<int>::iterator curLigne;
 };
 
 //--------------------------- Autres définitions dépendantes de <Index>
