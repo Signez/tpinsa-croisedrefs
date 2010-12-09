@@ -14,7 +14,7 @@ using namespace std;
 int Main::Run(int argc, const char* argv[])
 {
     // Contient le paramètre actuellement analysé
-    int paramCounter = 0;
+    int paramCounter = 1;
 
     // Nom du fichier contenant les mots-clés (si indiqués)
     string fichierMotCles = "";
@@ -29,30 +29,36 @@ int Main::Run(int argc, const char* argv[])
         return 0;
     }
 
-    string preArg = argv[1];
+    //Contient l'argument courant
+    string tmpArg = argv[paramCounter];
 
-    if(preArg.compare("-e")) {
+    if(tmpArg 	== "-e") {
         exclusion = false;
         paramCounter++;
-        if(argc == 1) {
-            cerr << "E: Aucun fichier à analyser." << endl;
-            printUsage(argv[0]);
-            return 0;
-        }
     }
+
+    if(argc-paramCounter == 0) {
+		cerr << "E: Aucun fichier à analyser." << endl;
+		printUsage(argv[0]);
+		return 0;
+	}
     
     ListeMotCles listeMotCles;
-    
-    //sizeof(argv[paramCounter])/sizeof(char) donne la taille de la chaine de caractère courante
-    if(sizeof(argv[paramCounter])/sizeof(char) > 2 && argv[paramCounter][0] == '-' && argv[paramCounter][1] == 'k')
+    tmpArg = argv[paramCounter];
+
+    if(tmpArg.length() >= 2 && tmpArg.substr(0, 2) == "-k")
     {
-        string arg = argv[paramCounter];
-        fichierMotCles = arg.substr(2, arg.length()-2);
+    	if(tmpArg.length() == 2) {
+    		cerr << "E: Option -k mal utilisée." << endl;
+    		printUsage(argv[0]);
+    		return 0;
+    	}
+        fichierMotCles = tmpArg.substr(2);
         paramCounter++;
         ifstream* fMotCles = new ifstream(fichierMotCles.c_str());
-        if(fMotCles->bad()) {
-            //TODO: ERREUR
-            cout << "erreur non supportée";
+        if(!fMotCles) {
+            cerr << "E: Le fichier des mots clés n'est pas valide";
+            return 0;
         }
 
         Parseur parseur(fichierMotCles); //On utilise la chaine de caractère qui indique le flux déjà testé
@@ -65,8 +71,8 @@ int Main::Run(int argc, const char* argv[])
         }
 
         if(listeMotCles.IsVide()) {
-            //TODO: ERREUR
-            cout << "erreur non supportée";
+            cerr << "E: Le fichier des mots clés n'est pas valide." << endl;
+            return 0;
         }
         
     }
@@ -90,11 +96,11 @@ int Main::Run(int argc, const char* argv[])
             listeMotCles->insert(mots[i]);
         }
     }
-    
-    if(argc - paramCounter <=0)
+      
+    if(argc - paramCounter == 0)
     {
-            //TODO: ERREUR
-            cout << "erreur non supportée";
+            cerr << "E: La liste des fichiers à analyser est vide.";
+            return 0;
     }
     
     vector<string> listFichiers(argc - paramCounter);

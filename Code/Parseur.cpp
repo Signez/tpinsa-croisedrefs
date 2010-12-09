@@ -38,7 +38,8 @@ pair<string, int>* Parseur::NextIdent()
         fichier->get(c);
         if(c == '\n') {
             currentLine++;
-        } else if((isalnum(c) || c == '_') && estDansIdentif) {
+        }
+        if((isalnum(c) || c == '_') && estDansIdentif) {
             nbreCar++;
             if(nbreCar > 256) {
                 buffer = "";
