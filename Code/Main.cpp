@@ -131,8 +131,8 @@ int Main::Run(int argc, const char* argv[])
         while(lindex->HasNextLine()){
           cout << " " << lindex->NextLine();
         }
-        cout << endl;
       }
+      cout << endl;
     }
 
     return 0;
