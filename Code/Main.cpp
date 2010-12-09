@@ -17,7 +17,7 @@ int Main::Run(int argc, const char* argv[])
     int paramCounter = 1;
 
     // Nom du fichier contenant les mots-clés (si indiqués)
-    string fichierMotCles = "";
+    //string fichierMotCles = "";
 
     // Doit-on exclure ou non les mots clés indiqués ?
     bool exclusion = true;
@@ -32,7 +32,7 @@ int Main::Run(int argc, const char* argv[])
     //Contient l'argument courant
     string tmpArg = argv[paramCounter];
 
-    if(tmpArg 	== "-e") {
+    if(tmpArg	== "-e") {
         exclusion = false;
         paramCounter++;
     }
@@ -46,22 +46,22 @@ int Main::Run(int argc, const char* argv[])
     ListeMotCles listeMotCles;
     tmpArg = argv[paramCounter];
 
-    if(tmpArg.length() >= 2 && tmpArg.substr(0, 2) == "-k")
-    {
-    	if(tmpArg.length() == 2) {
-    		cerr << "E: Option -k mal utilisée." << endl;
-    		printUsage(argv[0]);
-    		return 0;
-    	}
-        fichierMotCles = tmpArg.substr(2);
+    if(tmpArg == "-k") {
         paramCounter++;
-        ifstream* fMotCles = new ifstream(fichierMotCles.c_str());
+        if(argc-paramCounter == 0) {
+		    cerr << "E: Aucun fichier de mot clé à analyser." << endl;
+		    printUsage(argv[0]);
+		    return 0;
+	    }
+	    tmpArg = argv[paramCounter];
+    	
+        ifstream* fMotCles = new ifstream(tmpArg.c_str());
         if(!fMotCles) {
             cerr << "E: Le fichier des mots clés n'est pas valide";
             return 0;
         }
 
-        Parseur parseur(fichierMotCles); //On utilise la chaine de caractère qui indique le flux déjà testé
+        Parseur parseur(tmpArg); //On utilise la chaine de caractère qui indique le flux déjà testé
 
         string motcle = parseur.NextIdent()->first;
         while(motcle != "")
@@ -74,6 +74,8 @@ int Main::Run(int argc, const char* argv[])
             cerr << "E: Le fichier des mots clés n'est pas valide." << endl;
             return 0;
         }
+        
+        paramCounter++;
         
     }
     else
