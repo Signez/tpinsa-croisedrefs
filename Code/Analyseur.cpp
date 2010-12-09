@@ -40,7 +40,10 @@ Index * Analyseur::Run() {
         Parseur fichpars(*currFichier);
         std::pair<std::string, int> * ident = fichpars.NextIdent();
         while(ident->first != ""){
-          index->AddLine(ident->first, ident->second, *currFichier);
+          bool isMotCle = motscles.IsMotCle(ident->first);
+          if((!motsExclus && isMotCle) || (motsExclus && !isMotCle)) {
+            index->AddLine(ident->first, ident->second, *currFichier);
+          }
           ident = fichpars.NextIdent();
         }
     }

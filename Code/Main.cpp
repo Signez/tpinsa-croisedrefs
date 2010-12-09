@@ -90,10 +90,9 @@ int Main::Run(int argc, const char* argv[])
                         "struct", "switch", "template", "this", "throw", "true", 
                         "try", "typedef", "typeid", "typename", "union", "unsigned", 
                         "using", "virtual", "void", "volatile", "wchar_t", "while"};
-        set<string>* listeMotCles = new set<string>();
         for(int i=0; i<NB_MOTCLES; i++)
         {
-            listeMotCles->insert(mots[i]);
+            listeMotCles.AddMotCle(mots[i]);
         }
     }
       
