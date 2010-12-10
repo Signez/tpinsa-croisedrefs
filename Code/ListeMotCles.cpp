@@ -2,7 +2,7 @@
  ListeMotCles - Stocke la liste des éléments.
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -23,31 +23,26 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "ListeMotCles.h"
 
-//------------------------------------------------------------- Constantes
-
 //================================================================= PUBLIC
 
 bool ListeMotCles::AddMotCle(string unMotCle)
 {
     return ref.insert(unMotCle).second;
-}
+} //----- Fin de AddMotCle
 
 bool ListeMotCles::IsMotCle(std::string unMotCle) const
 {
     return ref.find(unMotCle) != ref.end();
-}
+} //----- Fin de IsMotCle
 
 bool ListeMotCles::IsVide() const
 {
     return ref.empty();
-}
+} //----- Fin de IsVide
 
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-/**
- * @algorithm
- */
 ListeMotCles & ListeMotCles::operator =(const ListeMotCles & uneListeMotCles)
 {
     ref = uneListeMotCles.ref;
@@ -57,9 +52,6 @@ ListeMotCles & ListeMotCles::operator =(const ListeMotCles & uneListeMotCles)
 
 //-------------------------------------------- Constructeurs - destructeur
 
-/**
- * @algorithm
- */
 ListeMotCles::ListeMotCles(const ListeMotCles & uneListeMotCles)
 {
 #ifdef MAP
@@ -68,10 +60,6 @@ ListeMotCles::ListeMotCles(const ListeMotCles & uneListeMotCles)
     ref = uneListeMotCles.ref;
 } //----- Fin de ListeMotCles (constructeur de copie)
 
-
-/**
- * @algorithm
- */
 ListeMotCles::ListeMotCles()
 {
 #ifdef MAP
@@ -80,10 +68,6 @@ ListeMotCles::ListeMotCles()
     ref = set<string>();
 } //----- Fin de ListeMotCles
 
-
-/**
- * @algorithm
- */
 ListeMotCles::~ListeMotCles()
 {
 #ifdef MAP

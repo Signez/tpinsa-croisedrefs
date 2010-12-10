@@ -13,7 +13,7 @@
 
 // =======[ Réalisation de la classe <Index> (fichier Index.cpp) ]========
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ INCLUDE
+// =============================================================== INCLUDE
 
 // ------------------------------------------------------- Include système
 
@@ -23,10 +23,11 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Index.h"
 
-//------------------------------------------------------------- Constantes
-
 // ================================================================ PUBLIC
 
+/**
+ * @algorithm L'algorithme a été décrit dans le dossier de Spécifiations.
+ */
 bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier)
 {
     // Les structures internes sont modifiées. On invalide les itérateurs
@@ -53,10 +54,10 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
         it->second->push_back(make_pair(nomFichier, lignes));
         return true;
     }
+    // On parse linéairement les fichiers, il suffit donc de vérifier que la dernière
+    // ligne mémorisée (pour cet identifiant dans ce fichier) n'est pas celle que
+    // l'on veut ajouter
     else if( (it->second->back().second->back()) != lineNum)
-    //On parse linéairement les fichiers, il suffit donc de vérifier que la dernière
-    //ligne mémorisée (pour cet identifiant dans ce fichier) n'est pas celle que
-    //l'on veut ajouter
     {
         it->second->back().second->push_back(lineNum);
         return true;
@@ -68,19 +69,19 @@ bool Index::HasNextIdent()
 {
   if(!areItValid) resetIterators();
   return itIdent != refs.end();
-}
+} //----- Fin de HasNextIdent
 
 bool Index::HasNextFile()
 {
   if(!areItValid) resetIterators();
   return itFichier != curIdent->second->end();
-}
+} //----- Fin de HasNextFile
 
 bool Index::HasNextLine()
 {
   if(!areItValid) resetIterators();
   return itLigne != curFichier->second->end();
-}
+} //----- Fin de HasNextLine
 
 string Index::NextIdent()
 {
@@ -90,7 +91,7 @@ string Index::NextIdent()
   curFichier = curIdent->second->begin();
   itFichier = curFichier;
   return retour;
-}
+} //----- Fin de NextIdent
 
 string Index::NextFile()
 {
@@ -100,7 +101,7 @@ string Index::NextFile()
   curLigne = curFichier->second->begin();
   itLigne = curLigne;
   return retour;
-}
+} //----- Fin de NextFile
 
 int Index::NextLine()
 {
@@ -108,7 +109,7 @@ int Index::NextLine()
   curLigne = itLigne;
   ++itLigne;
   return retour;
-}
+} //----- Fin de NextLine
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -162,4 +163,4 @@ void Index::resetIterators()
   curFichier = refs.begin()->second->begin();
   curLigne = refs.begin()->second->begin()->second->begin();
   areItValid = true;
-}
+} //----- Fin de resetIterators

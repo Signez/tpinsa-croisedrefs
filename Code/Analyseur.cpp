@@ -2,7 +2,7 @@
  Analyseur - Recherche les références contenues dans les fichiers.
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -26,11 +26,16 @@ using namespace std;
 #include "Index.h"
 #include "Parseur.h"
 
-//------------------------------------------------------------- Constantes
-
 //================================================================= PUBLIC
 
-
+/**
+ * @algorithm Pour tous les fichiers, un Parseur est créé. On boucle
+ * tant que ce parseur renvoie un identificateur, et on teste si cet
+ * identificateur est un identifiant (ou mot clé). Si c'est le cas
+ * ou si ça n'est pas le cas (selon le booléen motsExclus), on l'ajoute
+ * à un Index créé en début de méthode. Une fois ces boucles terminées,
+ * on renvoie l'index fraîchement rempli.
+ */
 Index * Analyseur::Run() {
     Index * index = new Index();
     // Pour tous les fichiers...
@@ -52,9 +57,6 @@ Index * Analyseur::Run() {
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-/**
- * @algorithm
- */
 Analyseur & Analyseur::operator =(const Analyseur & unAnalyseur)
 {
     motscles = unAnalyseur.motscles;
@@ -66,28 +68,21 @@ Analyseur & Analyseur::operator =(const Analyseur & unAnalyseur)
 
 //-------------------------------------------- Constructeurs - destructeur
 
-/**
- * @algorithm
- */
 Analyseur::Analyseur(ListeMotCles listeMotCles, vector<string> fichiers, bool exclusion)
     : motscles(listeMotCles), nomsFichiers(fichiers), motsExclus(exclusion)
 {
-}
+} //---- Fin de Analyseur (constructeur)
 
-/**
- * @algorithm
- */
 Analyseur::Analyseur(const Analyseur & unAnalyseur)
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Analyseur>" << endl;
 #endif
+    motscles = unAnalyseur.motscles;
+    nomsFichiers = unAnalyseur.nomsFichiers;
+    motsExclus = unAnalyseur.motsExclus;
 } //----- Fin de Analyseur (constructeur de copie)
 
-
-/**
- * @algorithm
- */
 Analyseur::~Analyseur()
 {
 #ifdef MAP

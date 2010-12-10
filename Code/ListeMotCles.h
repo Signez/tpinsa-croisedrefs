@@ -2,7 +2,7 @@
  ListeMotCles - Stocke la liste des éléments.
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -16,7 +16,7 @@
 #if ! defined ( LISTEMOTCLES_H_ )
 #define LISTEMOTCLES_H_
 
-//
+//--------------------------------------------------- Interfaces utilisées
 #include <set>
 #include <string>
 

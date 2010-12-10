@@ -1,8 +1,8 @@
 /*************************************************************************
- Parseur  -  description
+ Parseur - Analyse un fichier pour y trouver des identificateurs C++
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -24,39 +24,51 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Parseur.h"
 
-//------------------------------------------------------------- Constantes
-
 //================================================================= PUBLIC
 
+/**
+ * @algorithm Cet algorithme est disponible dans le dossier de
+ * Spécification.
+ */
 pair<string, int>* Parseur::NextIdent()
 {
     char c;
     bool estDansIdentif = false;
     string buffer = "";
     int nbreCar = 0;
+    
+    // Tant qu'il reste quelque chose à lire dans le fichier
     while(*fichier) {
         fichier->get(c);
         if(c == '\n') {
+            // Mise à jour du numéro de ligne à chaque retour chariot
             currentLine++;
         }
         if((isalnum(c) || c == '_') && estDansIdentif) {
             nbreCar++;
             if(nbreCar > 256) {
+                // Cas où l'identifiant est trop grand : il est ignoré
                 buffer = "";
                 estDansIdentif = false;
                 nbreCar = 0;
             } else {
+                // Tout va bien : on ajoute le caractère au buffer
                 buffer += c;
             }
         } else if ( (!isalnum(c) && c != '_') && estDansIdentif) {
+            // On vient de terminer un identifiant : on le retourne
             estDansIdentif = false;
             return new pair<string, int>(buffer, currentLine);
         } else if((isalpha(c) || c == '_') && !estDansIdentif) {
+            // On découvre un nouveau caractère de début : on démarre
+            // l'enregistrement de le buffer
             buffer = c;
             estDansIdentif = true;
-            nbreCar = 0;
+            nbreCar = 1;
         }
     }
+    // Plus rien à lire : le fichier est terminé. On retourne une
+    // chaîne vide pour indiquer cet état de fait
     return new pair<string, int>("", -1);
 } //----- Fin de NextIdent
 
@@ -66,11 +78,6 @@ pair<string, int>* Parseur::NextIdent()
 
 //-------------------------------------------- Constructeurs - destructeur
 
-/**
- * Contrat :
- *     Le fichier fileName doit correspondre à un flux valide.
- * @algorithm
- */
 Parseur::Parseur(string fileName) :
     currentLine(1)
 {

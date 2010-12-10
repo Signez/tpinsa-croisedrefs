@@ -2,7 +2,7 @@
  Analyseur - Recherche les références contenues dans les fichiers.
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -16,6 +16,7 @@
 #if ! defined ( ANALYSEUR_H_ )
 #define ANALYSEUR_H_
 
+//--------------------------------------------------- Interfaces utilisées
 #include <set>
 #include <string>
 #include <vector>
@@ -23,6 +24,14 @@
 #include "ListeMotCles.h"
 #include "Index.h"
 
+/**
+ * Recherche les références contenues dans les fichiers.
+ *
+ * Cette classe effectue le travail demandé par Main, avec les fichiers
+ * dont les noms sont donnés lors de sa construction. Il effectue ce
+ * travail en faisant appel à la classe Parseur, et ajoute les occurences
+ * trouvées à un Index.
+ */
 class Analyseur
 {
 

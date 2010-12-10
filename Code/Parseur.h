@@ -1,8 +1,8 @@
 /*************************************************************************
- Parseur  -  description
+ Parseur - Analyse un fichier pour y trouver des identificateurs C++
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -19,12 +19,14 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <fstream>
 #include <string>
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
 
 /**
+ * Analyse un fichier pour y trouver des identificateurs C++.
  *
+ * Les identificateurs C++ sont des chaînes de type [A-Za-z_][A-Za-z0-9_]*
+ * qui sont contenues dans des fichiers. Cette classe ne s'occupe pas de
+ * savoir si ces identificateurs correspondent à des identifiants (ou mots
+ * clés) ; voir la classe Analyseur.
  */
 class Parseur
 {
@@ -40,7 +42,7 @@ class Parseur
          * @return Une paire composée de l'identifiant (chaîne) et d'un numéro
          * de ligne (positif non nul). Si aucun autre identifiant ne peut être
          * trouvé dans le fichier, retourne une paire contenant une chaîne vide
-         * comme premier élément.
+         * comme premier élément et -1 comme second élément.
          */
         std::pair<std::string, int>* NextIdent();
 
@@ -58,6 +60,9 @@ class Parseur
 
         /**
          * Construit un parseur chargeant le fichier au nom fileName.
+         * 
+         * @contract Le fichier fileName doit correspondre à un fichier existant
+         * et valide.
          */
         Parseur(std::string fileName);
 

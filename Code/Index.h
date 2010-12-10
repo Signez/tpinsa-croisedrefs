@@ -2,7 +2,7 @@
  Index - Stocke des références vers des identifiants, fichiers et lignes
  -------------------
  début                : 19 nov. 2010
- copyright            : (C) 2010 par ssignoud
+ copyright            : (C) 2010 par ssignoud et tpatel
  *************************************************************************/
 
 // Comme autorisé (après demande) par les professeurs en séance de TP,
@@ -13,12 +13,10 @@
 
 // ==========[ Interface de la classe <Index> (fichier Index.h) ]=========
 
-
 #if ! defined ( INDEX_H_ )
 #define INDEX_H_
 
-
-// --- Inclusion des types de la STL
+//--------------------------------------------------- Interfaces utilisées
 #include <string>
 #include <map>
 #include <list>
