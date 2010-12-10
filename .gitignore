@@ -2,6 +2,7 @@ nbproject/
 NB-Makefile
 *.o
 Code/crossref
+Code/crossedrefs
 .dep.inc
 Code/build/
 Code/dist/
