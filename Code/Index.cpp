@@ -39,27 +39,27 @@ bool Index::AddLine(std::string identifiant, int lineNum, std::string nomFichier
     it = refs.find(identifiant);
     if (it == refs.end())
     {
-        list<int>* lignes = new list<int>();
-        lignes->push_back(lineNum);
+        list<int> lignes;
+        lignes.push_back(lineNum);
         
-        list<fichierLignes>* liste = new list<fichierLignes>();
-        liste->push_back(make_pair(nomFichier, lignes));
+        list<fichierLignes> liste;
+        liste.push_back(make_pair(nomFichier, lignes));
         return refs.insert(make_pair(identifiant, liste)).second;
     }
-    else if ( (it->second->back().first) != nomFichier)
+    else if ( (it->second.back().first) != nomFichier)
     {
-        list<int>* lignes = new list<int>();
-        lignes->push_back(lineNum);
+        list<int> lignes;
+        lignes.push_back(lineNum);
         
-        it->second->push_back(make_pair(nomFichier, lignes));
+        it->second.push_back(make_pair(nomFichier, lignes));
         return true;
     }
     // On parse linéairement les fichiers, il suffit donc de vérifier que la dernière
     // ligne mémorisée (pour cet identifiant dans ce fichier) n'est pas celle que
     // l'on veut ajouter
-    else if( (it->second->back().second->back()) != lineNum)
+    else if( (it->second.back().second.back()) != lineNum)
     {
-        it->second->back().second->push_back(lineNum);
+        it->second.back().second.push_back(lineNum);
         return true;
     }
     return false;
@@ -74,13 +74,13 @@ bool Index::HasNextIdent()
 bool Index::HasNextFile()
 {
   if(!areItValid) resetIterators();
-  return itFichier != curIdent->second->end();
+  return itFichier != curIdent->second.end();
 } //----- Fin de HasNextFile
 
 bool Index::HasNextLine()
 {
   if(!areItValid) resetIterators();
-  return itLigne != curFichier->second->end();
+  return itLigne != curFichier->second.end();
 } //----- Fin de HasNextLine
 
 string Index::NextIdent()
@@ -88,7 +88,7 @@ string Index::NextIdent()
   string retour = itIdent->first;
   curIdent = itIdent;
   ++itIdent;
-  curFichier = curIdent->second->begin();
+  curFichier = curIdent->second.begin();
   itFichier = curFichier;
   return retour;
 } //----- Fin de NextIdent
@@ -98,7 +98,7 @@ string Index::NextFile()
   string retour = itFichier->first;
   curFichier = itFichier;
   ++itFichier;
-  curLigne = curFichier->second->begin();
+  curLigne = curFichier->second.begin();
   itLigne = curLigne;
   return retour;
 } //----- Fin de NextFile
@@ -157,10 +157,10 @@ Index::~Index()
 void Index::resetIterators()
 {
   itIdent = refs.begin();
-  itFichier = refs.begin()->second->begin();
-  itLigne = refs.begin()->second->begin()->second->begin();
+  itFichier = refs.begin()->second.begin();
+  itLigne = refs.begin()->second.begin()->second.begin();
   curIdent = refs.begin();
-  curFichier = refs.begin()->second->begin();
-  curLigne = refs.begin()->second->begin()->second->begin();
+  curFichier = refs.begin()->second.begin();
+  curLigne = refs.begin()->second.begin()->second.begin();
   areItValid = true;
 } //----- Fin de resetIterators

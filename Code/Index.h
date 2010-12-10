@@ -38,8 +38,8 @@ class Index
 
     public:
     
-        typedef std::pair< std::string, std::list<int>* > fichierLignes;
-        typedef std::map< std::string, std::list<fichierLignes>* > identFichiers;
+        typedef std::pair< std::string, std::list<int> > fichierLignes;
+        typedef std::map< std::string, std::list<fichierLignes> > identFichiers;
         
         //----------------------------------------------------- Méthodes publiques
 

@@ -1,0 +1,14 @@
+Bienvenue dans la racine du projet CrossedRefs.
+
+== Comment compiler ? ==
+
+Il vous suffit de vous rendre dans le dossier Code, et à lancer la commande make. 
+Le fichier exécutable généré sera nommé crossedrefs et sera situé dans le même dossier.
+
+make clean permet de nettoyer le dossier de Code pour supprimer les fichiers objets .o ;
+make mrproper supprimera également l'exécutable généré.
+
+== Comment tester l'application ? ==
+
+Tous les fichiers nécessaires pour reproduire les tests du dossier de spécification
+et de conception se trouvent dans le dossier Tests.
